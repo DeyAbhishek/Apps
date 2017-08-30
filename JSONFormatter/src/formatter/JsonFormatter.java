@@ -115,7 +115,10 @@ public class JsonFormatter implements Formatter {
     
     
     
-    //-- Other Implemtations Below -- //
+	
+	
+    //------ Other Implementations of the format() Below ------//
+	
     public static String beautify(String s) {
         StringBuilder sb = new StringBuilder();
         int indent = 0;
