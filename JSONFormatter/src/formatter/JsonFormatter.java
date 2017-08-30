@@ -113,6 +113,9 @@ public class JsonFormatter implements Formatter {
         return Integer.MAX_VALUE;
     }
     
+    
+    
+    //-- Other Implemtations Below -- //
     public static String beautify(String s) {
         StringBuilder sb = new StringBuilder();
         int indent = 0;
@@ -130,5 +133,39 @@ public class JsonFormatter implements Formatter {
         }       
         return sb.toString();
     }
+    
+     public static String prettify(String jsonString) {
+	 StringBuilder builder = new StringBuilder();
+	 StringBuilder spaces = new StringBuilder();
+	 
+	 for (int i = 0; i < jsonString.length(); i ++) {
+		 char c = jsonString.charAt(i);
+		 switch (c) {
+		 	case '{' :
+		 		spaces.append(' ');
+		 		builder.append(c).append('\n').append(spaces);
+		 		break;
+		 	case '[' :
+		 		spaces.append('\t');
+		 		builder.append(c).append('\n').append(spaces);
+		 		break;
+		 	case ']' :
+		 		builder.append('\n').append(spaces).append(c);
+		 		spaces.deleteCharAt(spaces.length()-1);
+		 		break;
+		 	case '}' : 
+		 		spaces.deleteCharAt(spaces.length()-1);
+		 		builder.append('\n').append(spaces).append(c);
+		 		break;
+		 	case ',':
+		 		builder.append(c).append('\n').append(spaces);
+		 		break;
+		 	default :
+		 		builder.append(c);
+		 }
+	 }
+	 
+	 return builder.toString();
+ }
 
 }
