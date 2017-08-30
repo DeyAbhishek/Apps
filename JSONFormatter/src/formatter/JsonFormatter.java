@@ -22,10 +22,15 @@ public class JsonFormatter implements Formatter {
             insertTab(sb, count);
             sb.append(input.substring(i, colonIndex + 1));
 
-            int commaIndex = input.substring(colonIndex + 1).contains(",") ?input.substring(colonIndex).indexOf(',') : Integer.MAX_VALUE;
+            int commaIndex = 
+                input.substring(colonIndex + 1).contains(",") 
+                ? input.substring(colonIndex).indexOf(',') 
+                : Integer.MAX_VALUE;
 
             if (input.charAt(colonIndex + 1) == '[') {
-                int closingBracketIndex = colonIndex + 1 + getClosingBracketIndex(input.substring(colonIndex + 1));
+                int closingBracketIndex = colonIndex 
+                    + 1 + getClosingBracketIndex(input.substring(colonIndex + 1));
+                
                 sb.append(processJsonArray(input.substring(colonIndex + 1, closingBracketIndex + 1), count + 1));
                 i = closingBracketIndex + 1;
                 if (input.charAt(closingBracketIndex + 1) == ',') {
