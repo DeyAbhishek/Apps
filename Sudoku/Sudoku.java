@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Created by abhishek on 9/12/17.
  */
 public class Sudoku {
-private int fill, undoFill;
+    
     private static Sudoku instance = null; // lazy loading
 
     private static final int BASE = 3;
@@ -16,8 +16,6 @@ private int fill, undoFill;
     private boolean finished = false;
 
     private int[][] board = new int[DIMENSION][DIMENSION];
-
-    private int freecount = NCELLS;
 
     private Sudoku() {}
 
@@ -54,19 +52,14 @@ private int fill, undoFill;
             fillBoard(x, y, i);
             backtrack();
             undoFillBoard(x, y);
-            if (finished) return;
+            if (finished) return;  // early termination since we need only one solution
             }
         }
 
     }
 
-    private boolean isASolution() {
-        return freecount == 0;
-    }
-
     private void processsolution() {
         printBoard();
-        finished = true;
     }
 
     private void printBoard() {
@@ -80,12 +73,10 @@ private int fill, undoFill;
 
     private void fillBoard(int x, int y, int value) {
         board[x][y] = value;
-        freecount--;
     }
 
     private void undoFillBoard(int x, int y) {
         board[x][y] = 0;
-        freecount++;
     }
 
     private Cell getNextMostConstrainedCell() {
@@ -142,8 +133,5 @@ private int fill, undoFill;
         }
         return DIMENSION - alreadyFilled;
     }
-
-
-
 
 }
